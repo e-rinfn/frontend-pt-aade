@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 
 class LoginController extends Controller
@@ -19,11 +20,19 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
-        // Logika login sederhana (tanpa database)
-        if ($request->email === 'admin@example.com' && $request->password === 'password') {
+        // Kirim permintaan login ke API
+        $response = Http::post('http://localhost:8001/api/login', [
+            'email' => $request->email,
+            'password' => $request->password,
+        ]);
+
+        // Memeriksa response dari API
+        if ($response->successful()){
+            // Login berhasil dilakukan
             return redirect()->route('home');
         }
 
+        // Jika login gagal, kembali ke halaman sebelumnya dengan pesan error
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ]);
