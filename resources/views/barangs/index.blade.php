@@ -10,7 +10,7 @@
 
 <body>
     <h1>Daftar Barang</h1>
-    <a href="{{ route('barangs.create') }}">Tambah Barang</a>
+    {{-- <a href="{{ route('barangs.create') }}">Tambah Barang</a> --}}
     @if (isset($error))
         <p style="color: red;">{{ $error }}</p>
     @endif
