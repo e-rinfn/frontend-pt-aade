@@ -56,7 +56,7 @@
         <ul class="nav flex-column pt-5">
             <div class="pt-2">
                 <li class="nav-item border rounded border-dark">
-                    <a class="nav-link active text-dark font-weight-bold d-flex align-items-center"
+                    <a class="nav-link bg-primary text-white   d-flex align-items-center"
                         href="{{ route('barangs.halaman-utama') }}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-house" viewBox="0 0 16 16">
@@ -73,7 +73,7 @@
             <div class="pt-3">
                 <div class="pt-2 ">
                     <li class=" nav-item border rounded border-dark">
-                        <a class="nav-link bg-primary text-white  d-flex align-items-center"
+                        <a class="nav-link text-dark font-weight-bold d-flex align-items-center"
                             href="{{ route('barangs.index') }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-boxes" viewBox="0 0 16 16">
@@ -138,53 +138,68 @@
             </div>
         </ul>
     </div>
-
     <div class="content">
-        <div class="container mt-5">
-            <div class="card">
-                <div class="card-header">
-                    <h1 align='center'>Tambah Barang</h1>
-                </div>
-                <div class="container-fluid p-3">
-                    <div class="container mt-5">
-                        <div class="row">
-                            <div class="col-md-8">
-                                <form method="POST" action="{{ route('barangs.store') }}">
-                                    @csrf
-                                    <div class="mb-3">
-                                        <label for="nama_barang" class="form-label">ID Barang</label>
-                                        <input type="text" class="form-control" id="nama_barang" name="nama_barang"
-                                            placeholder="Masukkan nama barang" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="nama_barang" class="form-label">Nama Barang</label>
-                                        <input type="text" class="form-control" id="nama_barang" name="nama_barang"
-                                            placeholder="Masukkan nama barang" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="harga" class="form-label">Jumlah</label>
-                                        <input type="number" class="form-control" id="harga" name="harga"
-                                            placeholder="Masukkan harga barang" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="stok" class="form-label">Gambar</label>
-                                        <input type="number" class="form-control" id="stok" name="stok"
-                                            placeholder="Masukkan jumlah stok barang" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="deskripsi" class="form-label">Keterangan</label>
-                                        <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3"
-                                            placeholder="Masukkan deskripsi barang" required></textarea>
-                                    </div>
 
-                                    <button type="submit" class="btn btn-primary">Tambah Barang</button>
-                                </form>
-                            </div>
+        <div class="container-fluid mt-3">
+            <div class="welcome-bar">
+                Selamat Datang Admin
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor"
+                                class="bi bi-boxes" viewBox="0 0 16 16">
+                                <path
+                                    d="M7.752.066a.5.5 0 0 1 .496 0l3.75 2.143a.5.5 0 0 1 .252.434v3.995l3.498 2A.5.5 0 0 1 16 9.07v4.286a.5.5 0 0 1-.252.434l-3.75 2.143a.5.5 0 0 1-.496 0l-3.502-2-3.502 2.001a.5.5 0 0 1-.496 0l-3.75-2.143A.5.5 0 0 1 0 13.357V9.071a.5.5 0 0 1 .252-.434L3.75 6.638V2.643a.5.5 0 0 1 .252-.434zM4.25 7.504 1.508 9.071l2.742 1.567 2.742-1.567zM7.5 9.933l-2.75 1.571v3.134l2.75-1.571zm1 3.134 2.75 1.571v-3.134L8.5 9.933zm.508-3.996 2.742 1.567 2.742-1.567-2.742-1.567zm2.242-2.433V3.504L8.5 5.076V8.21zM7.5 8.21V5.076L4.75 3.504v3.134zM5.258 2.643 8 4.21l2.742-1.567L8 1.076zM15 9.933l-2.75 1.571v3.134L15 13.067zM3.75 14.638v-3.134L1 9.933v3.134z" />
+                            </svg>
+                            <p class="d-flex align-items-center">Total Barang</p>
+                        </div>
+                        <div class="bg-primary border border-dark rounded w-50 text-center text-white">
+                            <h5 class="card-title mb-0">26</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor"
+                                class="bi bi-boxes" viewBox="0 0 16 16">
+                                <path
+                                    d="M7.752.066a.5.5 0 0 1 .496 0l3.75 2.143a.5.5 0 0 1 .252.434v3.995l3.498 2A.5.5 0 0 1 16 9.07v4.286a.5.5 0 0 1-.252.434l-3.75 2.143a.5.5 0 0 1-.496 0l-3.502-2-3.502 2.001a.5.5 0 0 1-.496 0l-3.75-2.143A.5.5 0 0 1 0 13.357V9.071a.5.5 0 0 1 .252-.434L3.75 6.638V2.643a.5.5 0 0 1 .252-.434zM4.25 7.504 1.508 9.071l2.742 1.567 2.742-1.567zM7.5 9.933l-2.75 1.571v3.134l2.75-1.571zm1 3.134 2.75 1.571v-3.134L8.5 9.933zm.508-3.996 2.742 1.567 2.742-1.567-2.742-1.567zm2.242-2.433V3.504L8.5 5.076V8.21zM7.5 8.21V5.076L4.75 3.504v3.134zM5.258 2.643 8 4.21l2.742-1.567L8 1.076zM15 9.933l-2.75 1.571v3.134L15 13.067zM3.75 14.638v-3.134L1 9.933v3.134z" />
+                            </svg>
+                            <p class="d-flex align-items-center">Dipinjam</p>
+                        </div>
+                        <div class="bg-primary border border-dark rounded w-50 text-center text-white">
+                            <h5 class="card-title mb-0">26</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"
+                                fill="currentColor" class="bi bi-boxes" viewBox="0 0 16 16">
+                                <path
+                                    d="M7.752.066a.5.5 0 0 1 .496 0l3.75 2.143a.5.5 0 0 1 .252.434v3.995l3.498 2A.5.5 0 0 1 16 9.07v4.286a.5.5 0 0 1-.252.434l-3.75 2.143a.5.5 0 0 1-.496 0l-3.502-2-3.502 2.001a.5.5 0 0 1-.496 0l-3.75-2.143A.5.5 0 0 1 0 13.357V9.071a.5.5 0 0 1 .252-.434L3.75 6.638V2.643a.5.5 0 0 1 .252-.434zM4.25 7.504 1.508 9.071l2.742 1.567 2.742-1.567zM7.5 9.933l-2.75 1.571v3.134l2.75-1.571zm1 3.134 2.75 1.571v-3.134L8.5 9.933zm.508-3.996 2.742 1.567 2.742-1.567-2.742-1.567zm2.242-2.433V3.504L8.5 5.076V8.21zM7.5 8.21V5.076L4.75 3.504v3.134zM5.258 2.643 8 4.21l2.742-1.567L8 1.076zM15 9.933l-2.75 1.571v3.134L15 13.067zM3.75 14.638v-3.134L1 9.933v3.134z" />
+                            </svg>
+                            <p class="d-flex align-items-center">Peminjaman</p>
+                        </div>
+                        <div class="bg-primary border border-dark rounded w-50 text-center text-white">
+                            <h5 class="card-title mb-0">26</h5>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 </body>
 
 </html>
