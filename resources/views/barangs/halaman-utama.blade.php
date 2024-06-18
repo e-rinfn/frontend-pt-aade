@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Barang</title>
+    <title>Dashboard Barang</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -88,7 +88,8 @@
                 </div>
                 <div class="pt-2">
                     <li class=" nav-item border rounded border-dark">
-                        <a class="nav-link text-dark font-weight-bold d-flex align-items-center" href="#">
+                        <a class="nav-link text-dark font-weight-bold d-flex align-items-center"
+                            href="{{ route('barangs.pinjam') }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-folder-minus" viewBox="0 0 16 16">
                                 <path
@@ -104,7 +105,8 @@
 
                 <div class="pt-2 ">
                     <li class=" nav-item border rounded border-dark">
-                        <a class="nav-link text-dark font-weight-bold d-flex align-items-center" href="#">
+                        <a class="nav-link text-dark font-weight-bold d-flex align-items-center"
+                            href="{{ route('barangs.pengembalian') }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-folder-plus" viewBox="0 0 16 16">
                                 <path
@@ -121,7 +123,8 @@
 
                 <div class="pt-2 ">
                     <li class=" nav-item border rounded border-dark">
-                        <a class="nav-link text-dark font-weight-bold d-flex align-items-center" href="#">
+                        <a class="nav-link text-dark font-weight-bold d-flex align-items-center"
+                            href="{{ route('barangs.laporan') }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-clipboard" viewBox="0 0 16 16">
                                 <path

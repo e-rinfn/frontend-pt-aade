@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Barang</title>
+    <title>Tambah Barang</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -88,7 +88,8 @@
                 </div>
                 <div class="pt-2">
                     <li class=" nav-item border rounded border-dark">
-                        <a class="nav-link text-dark font-weight-bold d-flex align-items-center" href="#">
+                        <a class="nav-link text-dark font-weight-bold d-flex align-items-center"
+                            href="{{ route('barangs.pinjam') }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-folder-minus" viewBox="0 0 16 16">
                                 <path
@@ -104,7 +105,8 @@
 
                 <div class="pt-2 ">
                     <li class=" nav-item border rounded border-dark">
-                        <a class="nav-link text-dark font-weight-bold d-flex align-items-center" href="#">
+                        <a class="nav-link text-dark font-weight-bold d-flex align-items-center"
+                            href="{{ route('barangs.pengembalian') }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-folder-plus" viewBox="0 0 16 16">
                                 <path
@@ -121,7 +123,8 @@
 
                 <div class="pt-2 ">
                     <li class=" nav-item border rounded border-dark">
-                        <a class="nav-link text-dark font-weight-bold d-flex align-items-center" href="#">
+                        <a class="nav-link text-dark font-weight-bold d-flex align-items-center"
+                            href="{{ route('barangs.laporan') }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-clipboard" viewBox="0 0 16 16">
                                 <path
@@ -148,43 +151,98 @@
                 <div class="container-fluid p-3">
                     <div class="container mt-5">
                         <div class="row">
-                            <div class="col-md-8">
-                                <form method="POST" action="{{ route('barangs.store') }}">
+                            <div class="col-md-6">
+                                <form method="POST" action="{{ route('barangs.store') }}"
+                                    enctype="multipart/form-data">
                                     @csrf
-                                    <div class="mb-3">
-                                        <label for="nama_barang" class="form-label">ID Barang</label>
-                                        <input type="text" class="form-control" id="nama_barang" name="nama_barang"
-                                            placeholder="Masukkan nama barang" required>
-                                    </div>
                                     <div class="mb-3">
                                         <label for="nama_barang" class="form-label">Nama Barang</label>
                                         <input type="text" class="form-control" id="nama_barang" name="nama_barang"
                                             placeholder="Masukkan nama barang" required>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="harga" class="form-label">Jumlah</label>
-                                        <input type="number" class="form-control" id="harga" name="harga"
-                                            placeholder="Masukkan harga barang" required>
+                                        <label for="jumlah" class="form-label">Jumlah</label>
+                                        <input type="number" class="form-control" id="jumlah" name="jumlah"
+                                            placeholder="Masukkan jumlah barang" required>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="stok" class="form-label">Gambar</label>
-                                        <input type="number" class="form-control" id="stok" name="stok"
-                                            placeholder="Masukkan jumlah stok barang" required>
+                                        <label for="gambar" class="form-label">Gambar</label>
+                                        <input type="file" class="form-control" id="gambar" name="gambar">
                                     </div>
                                     <div class="mb-3">
                                         <label for="deskripsi" class="form-label">Keterangan</label>
                                         <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3"
                                             placeholder="Masukkan deskripsi barang" required></textarea>
                                     </div>
-
                                     <button type="submit" class="btn btn-primary">Tambah Barang</button>
                                 </form>
+                            </div>
+                            <div class="col-md-6 d-flex justify-content-center align-items-center">
+                                <div class="image-preview">
+                                    <img class="border" src="{{ asset('GambarPreview.png') }}" alt="Gambar Default"
+                                        id="gambar-preview" style="width: 100%">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+
+        <script>
+            document.getElementById('gambar').addEventListener('change', function(event) {
+                const [file] = this.files;
+                if (file) {
+                    const preview = document.getElementById('gambar-preview');
+                    preview.src = URL.createObjectURL(file);
+                }
+            });
+        </script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const gambarPreview = document.getElementById('gambar-preview');
+                const gambarInput = document.getElementById('gambar_kembali');
+                const imagePreview = document.querySelector('.image-preview');
+                const defaultImage = '{{ asset('default-image.jpg') }}';
+
+                gambarInput.addEventListener('change', function() {
+                    const file = this.files[0];
+                    const acceptedFileTypes = ['image/jpeg', 'image/png', 'image/gif'];
+
+                    if (file) {
+                        if (acceptedFileTypes.includes(file.type)) {
+                            const reader = new FileReader();
+
+                            reader.onload = function(event) {
+                                gambarPreview.src = event.target.result;
+                                imagePreview.style.display = 'block';
+                            }
+
+                            reader.readAsDataURL(file);
+                        } else {
+                            alert('Invalid file type. Please select an image file (JPEG, PNG, or GIF).');
+                            gambarInput.value = '';
+                            imagePreview.style.display = 'none';
+                        }
+                    } else {
+                        gambarPreview.src = defaultImage; // Set default image when no file selected
+                        imagePreview.style.display = 'block';
+                    }
+                });
+
+                // Add an event listener to prevent form submission without selecting an image
+                const form = document.querySelector('form');
+                form.addEventListener('submit', function(event) {
+                    if (!gambarInput.value) {
+                        alert('Please select an image or leave it blank if there is no new image.');
+                        event.preventDefault();
+                    }
+                });
+            });
+        </script>
+
 </body>
 
 </html>

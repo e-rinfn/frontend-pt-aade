@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Barang</title>
+    <title>Pengembalian</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -73,7 +73,7 @@
             <div class="pt-3">
                 <div class="pt-2 ">
                     <li class=" nav-item border rounded border-dark">
-                        <a class="nav-link bg-primary text-white  d-flex align-items-center"
+                        <a class="nav-link text-dark font-weight-bold d-flex align-items-center"
                             href="{{ route('barangs.index') }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-boxes" viewBox="0 0 16 16">
@@ -105,7 +105,7 @@
 
                 <div class="pt-2 ">
                     <li class=" nav-item border rounded border-dark">
-                        <a class="nav-link text-dark font-weight-bold d-flex align-items-center"
+                        <a class="nav-link bg-primary text-white d-flex align-items-center"
                             href="{{ route('barangs.pengembalian') }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-folder-plus" viewBox="0 0 16 16">
@@ -144,9 +144,9 @@
 
     <div class="content">
         <div class="container mt-5">
-            <div class="card">
+            <div class="card  p-3">
                 <div class="card-header">
-                    <h1 align='center'>Daftar Barang</h1>
+                    <h1 align='center'>Pengembalian Barang</h1>
                 </div>
                 <div class="container-fluid p-3">
                     <div class="row">
@@ -155,47 +155,49 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-body">
-                    @if (session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
+                {{-- <div class="card-body">
+                    @if (isset($error))
+                        <p style="color: red;">{{ $error }}</p>
                     @endif
-
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-                    @if (!empty($barangs))
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Nama</th>
-                                    <th>Stok</th>
-                                    <th>Gambar</th>
-                                    <th>Keterangan</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($barangs as $barang)
+                    @if (!empty($barangs)) --}}
+                <table class="table table-bordered ">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>No HP</th>
+                            <th>Nama Peminjam</th>
+                            <th>Nama Barang</th>
+                            <th>Jumlah</th>
+                            <th>Tanggal Pinjam</th>
+                            <th>Tanggal Kembali</th>
+                            <th>Status</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <td>1</td>
+                        <td>087828697080</td>
+                        <td>Erin Fajrin Nugraha</td>
+                        <td>Lenovo Thinkpad T480s</td>
+                        <td>2</td>
+                        <td>10/10/2025</td>
+                        <td>11/10/2025</td>
+                        <td>
+                            <div class="btn btn-success">
+                                Dipinjam
+                        </td>
+            </div>
+            <td>
+                <div class="btn btn-primary">Update</div>
+            </td>
+            {{-- @foreach ($barangs as $barang)
                                     <tr>
-                                        <td class="text-center">{{ $barang['id'] }}</td>
-                                        <td>{{ $barang['nama_barang'] }}</td>
-                                        <td class="text-center">{{ $barang['jumlah'] }}</td>
-                                        <td class="text-center">
-                                            @if (!empty($barang['gambar']))
-                                                <img src="{{ asset('storage/' . $barang['gambar']) }}"
-                                                    alt="{{ $barang['nama_barang'] }}" width="300">
-                                            @endif
-                                        </td>
-                                        <td>{{ $barang['deskripsi'] }}</td>
+                                        <td>{{ $barang['id'] }}</td>
+                                        <td>{{ $barang['nama'] }}</td>
+                                        <td>{{ $barang['stok'] }}</td>
+                                        <td><img src="https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//95/MTA-8246156/b-g_bg_sport_kursi_gaming_-_gaming_chair_model_e-02s_-_red_-_full01_ofirje25.jpg"
+                                                alt="" width="200"></td>
+                                        <td>Kursi Berada di gudang 1</td>
                                         <td>
                                             <a href="{{ route('barangs.edit', $barang['id']) }}"
                                                 class="btn btn-warning btn-sm">Edit</a>
@@ -203,20 +205,22 @@
                                                 style="display:inline;">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm"
-                                                    onclick="return confirm('Apakah Anda yakin ingin menghapus barang ini?')">Hapus</button>
+                                                <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
                                             </form>
                                         </td>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    @else
-                        <p>Tidak ada data barang yang tersedia.</p>
-                    @endif
-                </div>
-            </div>
+                                @endforeach --}}
+
+
+
+            </tbody>
+            </table>
+            {{-- @else
+                <p>Tidak ada data barang yang tersedia.</p>
+                @endif --}}
         </div>
+    </div>
+    </div>
 </body>
 
 </html>
