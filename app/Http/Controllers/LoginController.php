@@ -37,12 +37,13 @@ class LoginController extends Controller
         if ($response->successful()) {
              // Login berhasil, ambil token
             $token = $response->json()['token'];
+            
              // Hapus token sebelumnya (jika ada) dan simpan token baru dalam session
              $request->session()->invalidate(); // Hapus session yang ada
              $request->session()->regenerateToken(); // Regenerasi token session baru
              $request->session()->put('api_token', $token); // Simpan token baru
              // Alihkan ke halaman home
-            return redirect()->route('barangs.index');
+            return redirect()->route('barangs.halaman-utama');
         }
 
         // Login gagal, kembali ke halaman login dengan pesan error

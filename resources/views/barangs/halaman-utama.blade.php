@@ -49,14 +49,15 @@
 <body>
     <div class="sidebar bg-warning">
         <div class="bg-primary p-3">
-            <a href="{{ route('home') }}">
+            <a href="{{ route('barangs.index') }}">
                 <img src="{{ asset('logo.png') }}" alt="Menu">
             </a>
         </div>
         <ul class="nav flex-column pt-5">
             <div class="pt-2">
                 <li class="nav-item border rounded border-dark">
-                    <a class="nav-link active bg-primary text-white d-flex align-items-center" href="#">
+                    <a class="nav-link bg-primary text-white   d-flex align-items-center"
+                        href="{{ route('barangs.halaman-utama') }}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-house" viewBox="0 0 16 16">
                             <path
@@ -72,7 +73,8 @@
             <div class="pt-3">
                 <div class="pt-2 ">
                     <li class=" nav-item border rounded border-dark">
-                        <a class="nav-link text-dark font-weight-bold d-flex align-items-center" href="#">
+                        <a class="nav-link text-dark font-weight-bold d-flex align-items-center"
+                            href="{{ route('barangs.index') }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-boxes" viewBox="0 0 16 16">
                                 <path
@@ -197,122 +199,6 @@
                 </div>
             </div>
         </div>
-
-        <h1>Daftar Barang</h1>
-
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nama</th>
-                    <th>Harga</th>
-                    <th>Stok</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Barang A</td>
-                    <td>10000</td>
-                    <td>5</td>
-                    <td>
-                        <button class="btn btn-primary">Edit</button>
-                        <button class="btn btn-danger">Delete</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Barang B</td>
-                    <td>15000</td>
-                    <td>10</td>
-                    <td>
-                        <button class="btn btn-primary">Edit</button>
-                        <button class="btn btn-danger">Delete</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Barang C</td>
-                    <td>20000</td>
-                    <td>3</td>
-                    <td>
-                        <button class="btn btn-primary">Edit</button>
-                        <button class="btn btn-danger">Delete</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        @if (isset($error))
-            <p style="color: red;">{{ $error }}</p>
-        @endif
-        @if (!empty($barangs))
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nama</th>
-                        <th>Harga</th>
-                        <th>Stok</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Barang A</td>
-                        <td>10000</td>
-                        <td>5</td>
-                        <td>
-                            <button class="btn btn-primary">Edit</button>
-                            <button class="btn btn-danger">Delete</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Barang B</td>
-                        <td>15000</td>
-                        <td>10</td>
-                        <td>
-                            <button class="btn btn-primary">Edit</button>
-                            <button class="btn btn-danger">Delete</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Barang C</td>
-                        <td>20000</td>
-                        <td>3</td>
-                        <td>
-                            <button class="btn btn-primary">Edit</button>
-                            <button class="btn btn-danger">Delete</button>
-                        </td>
-                    </tr>
-                </tbody>
-                <tbody>
-                    @foreach ($barangs as $barang)
-                        <tr>
-                            <td>{{ $barang['id'] }}</td>
-                            <td>{{ $barang['nama'] }}</td>
-                            <td>{{ $barang['harga'] }}</td>
-                            <td>{{ $barang['stok'] }}</td>
-                            <td>
-                                <a href="{{ route('barangs.show', $barang['id']) }}">Lihat</a>
-                                <a href="{{ route('barangs.edit', $barang['id']) }}">Edit</a>
-                                <form action="{{ route('barangs.destroy', $barang['id']) }}" method="POST"
-                                    style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-link">Hapus</button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        @else
-            <p>Tidak ada data barang yang tersedia.</p>
-        @endif
     </div>
 </body>
 
