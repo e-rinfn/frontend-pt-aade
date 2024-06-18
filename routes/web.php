@@ -17,6 +17,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Menampilkan daftar barang
     Route::get('/barangs', [BarangController::class, 'index'])->name('barangs.index');
+    // Route::get('/barangs', [BarangController::class, 'store'])->name('barangs.store');
     Route::get('/barangs/{id}', [BarangController::class, 'show'])->name('barangs.show');
     Route::get('/barangs/{id}/edit', [BarangController::class, 'edit'])->name('barangs.edit');
     Route::delete('/barangs/{id}', [BarangController::class, 'destroy'])->name('barangs.destroy');
@@ -30,6 +31,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/create', [BarangController::class, 'create'])->name('barangs.create');
     Route::post('barangs', [BarangController::class, 'store'])->name('barangs.store');
 
-    Route::post('barangs/{id}/pinjam', [BarangController::class, 'pinjam'])->name('barangs.pinjam');
-
+    Route::get('/pinjam', [BarangController::class, 'halamanPinjam'])->name('barangs.pinjam');
+    Route::get('/pengembalian', [BarangController::class, 'halamanPengembalian'])->name('barangs.pengembalian');
+    Route::get('/laporan', [BarangController::class, 'halamanLaporan'])->name('barangs.laporan');
 });

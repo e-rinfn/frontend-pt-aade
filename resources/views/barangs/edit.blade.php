@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Barang</title>
+    <title>Edit Barang</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -88,8 +88,7 @@
                 </div>
                 <div class="pt-2">
                     <li class=" nav-item border rounded border-dark">
-                        <a class="nav-link text-dark font-weight-bold d-flex align-items-center"
-                            href="{{ route('barangs.pinjam') }}">
+                        <a class="nav-link text-dark font-weight-bold d-flex align-items-center" href="#">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-folder-minus" viewBox="0 0 16 16">
                                 <path
@@ -105,8 +104,7 @@
 
                 <div class="pt-2 ">
                     <li class=" nav-item border rounded border-dark">
-                        <a class="nav-link text-dark font-weight-bold d-flex align-items-center"
-                            href="{{ route('barangs.pengembalian') }}">
+                        <a class="nav-link text-dark font-weight-bold d-flex align-items-center" href="#">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-folder-plus" viewBox="0 0 16 16">
                                 <path
@@ -123,8 +121,7 @@
 
                 <div class="pt-2 ">
                     <li class=" nav-item border rounded border-dark">
-                        <a class="nav-link text-dark font-weight-bold d-flex align-items-center"
-                            href="{{ route('barangs.laporan') }}">
+                        <a class="nav-link text-dark font-weight-bold d-flex align-items-center" href="#">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-clipboard" viewBox="0 0 16 16">
                                 <path
@@ -146,74 +143,39 @@
         <div class="container mt-5">
             <div class="card">
                 <div class="card-header">
-                    <h1 align='center'>Daftar Barang</h1>
+                    <h1 align='center'>Edit Data Barang</h1>
                 </div>
                 <div class="container-fluid p-3">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <a href="{{ route('barangs.create') }}" class="btn btn-primary">Tambah Barang</a>
+                    <div class="container mt-5">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <form method="POST" action="{{ route('barangs.store') }}"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="mb-3">
+                                        <label for="nama_barang" class="form-label">Nama Barang</label>
+                                        <input type="text" class="form-control" id="nama_barang" name="nama_barang"
+                                            placeholder="Masukkan nama barang" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="jumlah" class="form-label">Jumlah</label>
+                                        <input type="number" class="form-control" id="jumlah" name="jumlah"
+                                            placeholder="Masukkan jumlah barang" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="gambar" class="form-label">Gambar</label>
+                                        <input type="file" class="form-control" id="gambar" name="gambar">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="deskripsi" class="form-label">Keterangan</label>
+                                        <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3"
+                                            placeholder="Masukkan deskripsi barang" required></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Tambah Barang</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="card-body">
-                    @if (session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
-
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-                    @if (!empty($barangs))
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Nama</th>
-                                    <th>Stok</th>
-                                    <th>Gambar</th>
-                                    <th>Keterangan</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($barangs as $barang)
-                                    <tr>
-                                        <td class="text-center">{{ $barang['id'] }}</td>
-                                        <td>{{ $barang['nama_barang'] }}</td>
-                                        <td class="text-center">{{ $barang['jumlah'] }}</td>
-                                        <td class="text-center">
-                                            @if (!empty($barang['gambar']))
-                                                <img src="{{ asset('storage/' . $barang['gambar']) }}"
-                                                    alt="{{ $barang['nama_barang'] }}" width="300">
-                                            @endif
-                                        </td>
-                                        <td>{{ $barang['deskripsi'] }}</td>
-                                        <td>
-                                            <a href="{{ route('barangs.edit', $barang['id']) }}"
-                                                class="btn btn-warning btn-sm">Edit</a>
-                                            <form action="{{ route('barangs.destroy', $barang['id']) }}" method="POST"
-                                                style="display:inline;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm"
-                                                    onclick="return confirm('Apakah Anda yakin ingin menghapus barang ini?')">Hapus</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    @else
-                        <p>Tidak ada data barang yang tersedia.</p>
-                    @endif
                 </div>
             </div>
         </div>
