@@ -123,35 +123,46 @@ class BarangController extends Controller
     // Mengupdate barang
     public function update(Request $request, $id)
     {
-        // Validasi request
-        $validated = $request->validate([
-            'name' => 'required',
-            'price' => 'required|integer',
-            'description' => 'required',
+        $validator = Validator::make($request->all(), [
+            'nama_barang' => 'required|string|max:255',
+            'deskripsi' => 'nullable|string',
+            'jumlah' => 'required|integer|min:1',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        // Mendapatkan token dari session
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
         $token = session('api_token');
 
-        // Kirim permintaan ke API untuk mengupdate barang
+        $gambarPath = null;
+        if ($request->hasFile('gambar')) {
+            $fileName = time() . '-' . $request->file('gambar')->getClientOriginalName();
+            $gambarPath = $request->file('gambar')->storeAs('images', $fileName, 'public');
+        } else {
+            $gambarPath = $request->input('current_gambar'); // keep the current image if no new image is uploaded
+        }
+
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->put('http://localhost:8001/api/barangs/' . $id, $validated);
+        ])->put('http://localhost:8001/api/barangs/' . $id, [
+            'nama_barang' => $request->nama_barang,
+            'deskripsi' => $request->deskripsi,
+            'jumlah' => $request->jumlah,
+            'gambar' => $gambarPath,
+        ]);
 
-        // Periksa apakah permintaan berhasil
         if ($response->successful()) {
-            // Alihkan ke halaman index jika berhasil
             return redirect()->route('barangs.index')->with('success', 'Barang berhasil diperbarui.');
         } else {
-            // Ambil pesan error dari respons API jika ada
-            $error_message = $response->json()['error'] ?? 'Gagal memperbarui barang. Silakan coba lagi.';
-
-            // Kembalikan dengan pesan error
             return back()->withErrors([
-                'error' => $error_message,
+                'error' => 'Gagal memperbarui barang. Silakan coba lagi.',
             ]);
         }
     }
+
+
 
     // Menghapus barang
     public function destroy($id)
@@ -178,6 +189,7 @@ class BarangController extends Controller
             ]);
         }
     }
+
 
     public function halamanUtama()
     {
