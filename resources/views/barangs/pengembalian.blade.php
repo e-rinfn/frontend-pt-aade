@@ -148,48 +148,54 @@
                 <div class="card-header">
                     <h1 align='center'>Pengembalian Barang</h1>
                 </div>
-                <div class="container-fluid p-3">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <a href="{{ route('barangs.create') }}" class="btn btn-primary">Tambah Barang</a>
-                        </div>
-                    </div>
-                </div>
-                {{-- <div class="card-body">
-                    @if (isset($error))
-                        <p style="color: red;">{{ $error }}</p>
-                    @endif
-                    @if (!empty($barangs)) --}}
+                <br>
                 <table class="table table-bordered ">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>No HP</th>
-                            <th>Nama Peminjam</th>
-                            <th>Nama Barang</th>
-                            <th>Jumlah</th>
-                            <th>Tanggal Pinjam</th>
-                            <th>Tanggal Kembali</th>
-                            <th>Status</th>
-                            <th>Aksi</th>
+                            <th class="text-center">ID</th>
+                            <th class="text-center">No HP</th>
+                            <th class="text-center">Nama Peminjam</th>
+                            <th class="text-center">Nama Barang</th>
+                            <th class="text-center">Jumlah</th>
+                            <th class="text-center">Tanggal Pinjam</th>
+                            <th class="text-center">Tanggal Kembali</th>
+                            <th class="text-center">Status</th>
+                            <th class="text-center">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <td>1</td>
-                        <td>087828697080</td>
-                        <td>Erin Fajrin Nugraha</td>
-                        <td>Lenovo Thinkpad T480s</td>
-                        <td>2</td>
-                        <td>10/10/2025</td>
-                        <td>11/10/2025</td>
-                        <td>
-                            <div class="btn btn-success">
-                                Dipinjam
-                        </td>
+                        @foreach ($peminjaman as $pinjam)
+                            <tr>
+                                <td class="text-center">{{ $pinjam['id'] }}</td>
+                                <td>{{ $pinjam['no_hp'] }}</td>
+                                <td>{{ $pinjam['nama_peminjam'] }}</td>
+                                <td>{{ $pinjam['nama_barang'] }}</td>
+                                <td>{{ $pinjam['jumlah'] }}</td>
+                                <td>{{ $pinjam['tanggal_pinjam'] }}</td>
+                                <td>{{ $pinjam['tanggal_kembali'] }}</td>
+                                <td class="text-center">
+                                    @if ($pinjam['status'] == 'Dipinjam')
+                                        <button class="btn btn-warning">Dipinjam</button>
+                                    @elseif($pinjam['status'] == 'Kembali')
+                                        <button class="btn btn-success">Kembali</button>
+                                    @else
+                                        <button class="btn btn-secondary">{{ $pinjam['status'] }}</button>
+                                    @endif
+                                </td>
+                                <td class="text-center">
+                                    {{-- <a href="{{ route('barangs.edit', $pinjam['id']) }}"
+                                        class="btn btn-warning btn-sm">Edit</a>
+                                    <form action="{{ route('barangs.destroy', $pinjam['id']) }}" method="POST"
+                                        style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                                    </form> --}}
+                                    <a href="#" class="btn btn-primary">Update</a>
+                                </td>
+                            </tr>
+                        @endforeach
             </div>
-            <td>
-                <div class="btn btn-primary">Update</div>
-            </td>
             {{-- @foreach ($barangs as $barang)
                                     <tr>
                                         <td>{{ $barang['id'] }}</td>

@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\BarangController;
-
+use App\Http\Controllers\PeminjamanController;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -14,24 +14,23 @@ Route::post('/login', [LoginController::class, 'login']);
 
 // Middleware 'auth' digunakan untuk memastikan pengguna harus login
 Route::middleware(['auth'])->group(function () {
-
-    // Menampilkan daftar barang
-    Route::get('/barangs', [BarangController::class, 'index'])->name('barangs.index');
-    // Route::get('/barangs', [BarangController::class, 'store'])->name('barangs.store');
-    Route::get('/barangs/{id}', [BarangController::class, 'show'])->name('barangs.show');
-    Route::get('/barangs/{id}/edit', [BarangController::class, 'edit'])->name('barangs.edit');
-    Route::delete('/barangs/{id}', [BarangController::class, 'destroy'])->name('barangs.destroy');
+    // Menggunakan resource route untuk CRUD barang
+    Route::resource('barangs', BarangController::class);
+    Route::resource('peminjaman', PeminjamanController::class);
 
     // Menampilkan halaman utama
     Route::get('/halaman-utama', [BarangController::class, 'halamanUtama'])->name('barangs.halaman-utama');
 
-
-
     // Menambahkan data barang melalui create.blade.php
     Route::get('/create', [BarangController::class, 'create'])->name('barangs.create');
-    Route::post('barangs', [BarangController::class, 'store'])->name('barangs.store');
+
+    // Route untuk update menggunakan PUT method
+    Route::put('/barangs/{id}', [BarangController::class, 'update'])->name('barangs.update');
+
+    // Route untuk delete menggunakan DELETE method
+    // Route::delete('/barangs/{id}', [BarangController::class, 'destroy'])->name('barangs.destroy');
 
     Route::get('/pinjam', [BarangController::class, 'halamanPinjam'])->name('barangs.pinjam');
-    Route::get('/pengembalian', [BarangController::class, 'halamanPengembalian'])->name('barangs.pengembalian');
+    Route::get('/pengembalian', [PeminjamanController::class, 'index'])->name('barangs.pengembalian');
     Route::get('/laporan', [BarangController::class, 'halamanLaporan'])->name('barangs.laporan');
 });

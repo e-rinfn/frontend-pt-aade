@@ -143,44 +143,61 @@
     <div class="content">
         <div class="container mt-5">
             <div class="card">
+
                 <div class="card-header">
                     <h1 align='center'>Peminjaman Barang</h1>
                 </div>
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="container-fluid p-3">
                     <div class="container mt-5">
                         <div class="row">
                             <div class="col-md-8">
-                                <form method="POST" action="{{ route('barangs.store') }}">
+                                <form method="POST" action="{{ route('peminjaman.store') }}">
                                     @csrf
                                     <div class="mb-3">
                                         <label for="no_hp" class="form-label">No HP Peminjam</label>
                                         <input type="text" class="form-control" id="no_hp" name="no_hp"
-                                            placeholder="Masukkan nama barang" required>
+                                            placeholder="masukkan nomor HP" required>
                                     </div>
                                     <div class="mb-3">
                                         <label for="nama_peminjam" class="form-label">Nama Peminjam</label>
                                         <input type="text" class="form-control" id="nama_peminjam"
-                                            name="nama_peminjam" placeholder="Masukkan nama barang" required>
+                                            name="nama_peminjam" placeholder="masukkan nama peminjam" required>
                                     </div>
                                     <div class="mb-3">
                                         <label for="nama_barang" class="form-label">Nama Barang</label>
-                                        <input type="number" class="form-control" id="nama_barang"
-                                            name="nama_barang" placeholder="Masukkan nama_barang barang" required>
+                                        <input type="text" class="form-control" id="nama_barang"
+                                            name="nama_barang" placeholder="masukkan nama barang" required>
                                     </div>
                                     <div class="mb-3">
                                         <label for="jumlah" class="form-label">Jumlah</label>
                                         <input type="number" class="form-control" id="jumlah" name="jumlah"
-                                            placeholder="Masukkan jumlah jumlah barang" required>
+                                            placeholder="masukkan jumlah barang" required>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="jumlah" class="form-label">Tanggal Pinjam</label>
-                                        <input type="date" class="form-control" id="jumlah" name="jumlah"
-                                            placeholder="Masukkan jumlah barang" required>
+                                        <label for="tanggal_pinjam" class="form-label">Tanggal Pinjam</label>
+                                        <input type="date" class="form-control" id="tanggal_pinjam"
+                                            name="tanggal_pinjam" placeholder="masukkan tanggal peminjaman" required>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="jumlah" class="form-label">Tanggal Kembali</label>
-                                        <input type="date" class="form-control" id="jumlah" name="jumlah"
-                                            placeholder="Masukkan jumlah barang" required>
+                                        <label for="tanggal_kembali" class="form-label">Tanggal Kembali</label>
+                                        <input type="date" class="form-control" id="tanggal_kembali"
+                                            name="tanggal_kembali" placeholder="masukkan tanggal pengembalian"
+                                            required>
                                     </div>
                                     <div class="mb-3">
                                         <label for="status" class="form-label">Status</label>
@@ -188,11 +205,8 @@
                                             <option value="">Pilih Status</option>
                                             <option value="Dipinjam">Dipinjam</option>
                                             <option value="Kembali">Kembali</option>
-                                            <option value="Diperbaiki">Diperbaiki</option>
-                                            <option value="Hilang">Hilang</option>
                                         </select>
                                     </div>
-
                                     <button type="submit" class="btn btn-primary">Tambah Peminjaman</button>
                                 </form>
                             </div>
