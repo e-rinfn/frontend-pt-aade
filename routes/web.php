@@ -32,5 +32,5 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/pinjam', [BarangController::class, 'halamanPinjam'])->name('barangs.pinjam');
     Route::get('/pengembalian', [PeminjamanController::class, 'index'])->name('barangs.pengembalian');
-    Route::get('/laporan', [BarangController::class, 'halamanLaporan'])->name('barangs.laporan');
+    Route::get('/laporan', [PeminjamanController::class, 'laporan'])->name('barangs.laporan');
 });

@@ -148,13 +148,13 @@
                 <div class="card-header">
                     <h1 align='center'>Laporan</h1>
                 </div>
-                <div class="container-fluid p-3">
+                {{-- <div class="container-fluid p-3">
                     <div class="row">
                         <div class="col-md-12">
                             <a href="{{ route('barangs.create') }}" class="btn btn-primary">Tambah Barang</a>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 {{-- <div class="card-body">
                     @if (isset($error))
                         <p style="color: red;">{{ $error }}</p>
@@ -173,37 +173,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <td>1</td>
-                        <td>087828697080</td>
-                        <td>Erin Fajrin Nugraha</td>
-                        <td>Lenovo Thinkpad T480s</td>
-                        <td>2</td>
-                        <td>10/10/2025</td>
-                        <td>11/10/2025</td>
-
-                        {{-- @foreach ($barangs as $barang)
-                                    <tr>
-                                        <td>{{ $barang['id'] }}</td>
-                                        <td>{{ $barang['nama'] }}</td>
-                                        <td>{{ $barang['stok'] }}</td>
-                                        <td><img src="https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//95/MTA-8246156/b-g_bg_sport_kursi_gaming_-_gaming_chair_model_e-02s_-_red_-_full01_ofirje25.jpg"
-                                                alt="" width="200"></td>
-                                        <td>Kursi Berada di gudang 1</td>
-                                        <td>
-                                            <a href="{{ route('barangs.edit', $barang['id']) }}"
-                                                class="btn btn-warning btn-sm">Edit</a>
-                                            <form action="{{ route('barangs.destroy', $barang['id']) }}" method="POST"
-                                                style="display:inline;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach --}}
-
-
-
+                        @foreach ($peminjaman as $pinjam)
+                            <tr>
+                                <td class="text-center">{{ $pinjam['id'] }}</td>
+                                <td>{{ $pinjam['no_hp'] }}</td>
+                                <td>{{ $pinjam['nama_peminjam'] }}</td>
+                                <td>{{ $pinjam['nama_barang'] }}</td>
+                                <td>{{ $pinjam['jumlah'] }}</td>
+                                <td>{{ $pinjam['tanggal_pinjam'] }}</td>
+                                <td>{{ $pinjam['tanggal_kembali'] }}</td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
                 {{-- @else
