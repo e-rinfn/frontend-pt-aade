@@ -36,6 +36,31 @@ class PeminjamanController extends Controller
         }
     }
 
+
+    public function laporan()
+    {
+        // Mendapatkan token dari session
+        $token = session('api_token');
+        
+        // Mengirim permintaan ke API untuk mendapatkan data barang
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->get('http://localhost:8001/api/peminjaman');
+
+        // Memeriksa apakah permintaan berhasil
+        if ($response->successful()) {
+            // Mengambil data barang dari respons API
+            $peminjaman = $response->json();
+
+            // Mengirim data barang ke view
+            return view('barangs.laporan', ['peminjaman' => $peminjaman]);
+        } else {
+            return back()->withErrors([
+                'error' => 'Gagal mendapatkan data peminjaman. Silakan coba lagi.',
+            ]);
+        }
+    }
+
     public function store(Request $request)
     {
         // Validasi data input
